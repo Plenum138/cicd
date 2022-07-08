@@ -1,0 +1,46 @@
+sudo ssh measuremints@161.97.157.111
+
+Live Password = 
+measuremints
+E8sd3FTlia
+
+path
+/home/measuremints/web/measuremints.plenumnetworks.com/public_html
+cd web/measuremints.plenumnetworks.com/public_html
+
+
+
+
+
+
+Eric
+High School
+eric@mailinator.com
+indra path
+
+
+
+
+
+employess
+username
+employee_type
+Password
+mobile no
+avatar
+dob
+firebase token
+school_id
+roles
+isEmailVerified
+user_status
+
+
+
+18 may 2022
+http image in ios
+arrow back in ios 
+camera permission in ios
+
+
+
