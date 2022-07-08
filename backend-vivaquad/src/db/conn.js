@@ -5,7 +5,7 @@ const liveDB = "mongodb://plenum:raryFouPl1@161.97.157.111:27017/vivaquad?authSo
 
 
 
-mongoose.connect(process.env.MONGODB_URI || liveDB, {
+mongoose.connect(process.env.MONGODB_URI || localDB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 

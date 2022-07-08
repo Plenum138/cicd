@@ -43,4 +43,7 @@ arrow back in ios
 camera permission in ios
 
 
+ssh -i "aws-cicd.pem" ubuntu@ec2-23-20-133-165.compute-1.amazonaws.com    
+
+
 
