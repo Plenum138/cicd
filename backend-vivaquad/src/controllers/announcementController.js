@@ -144,13 +144,16 @@ module.exports = {
             let _id = req.body._id;
             const reqBody = req.body;
             let userDetails = await UserLogins.findById(_id).lean().exec();
+            let getSchool = await School.findOne({loginid : userDetails._id}).lean().exec();
 
+
+            console.log(getSchool)
 
 
 
             const Limit = reqBody.limit ? parseInt(reqBody.limit) : 10;
             const PageNo = reqBody.page ? parseInt(reqBody.page) : 0;
-            const data = await Announcement.find({ school_id: userDetails.school_id }).sort({ updated_at: -1 }).skip(Limit * PageNo).limit(Limit).lean().exec();
+            const data = await Announcement.find({ school_id: getSchool._id }).sort({ updated_at: -1 }).skip(Limit * PageNo).limit(Limit).lean().exec();
             const count = await Announcement.count({ school_id: userDetails.school_id });
 
 

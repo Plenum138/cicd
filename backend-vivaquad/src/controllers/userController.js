@@ -217,7 +217,7 @@ module.exports = {
                 data.isAccountVerified = data.user_status;
 
 
-
+               
 
                 data.save(async (err, result) => {
                     if (result) {
@@ -225,19 +225,19 @@ module.exports = {
                         let msg_body = 'Hi, <br />';
                         msg_body += `Your account has been ${status} by your university<br />`;
                         // await Helper.sendEmail(result.email, 'Vivaquad App', msg_body)
-                        let title = `Hi ${result.username}`;
+                        let title = `Hi ${result.username}!`;
                         let body = `Your account has been ${status} by your university`;
                         let type = status
                         await sendPushNotificationToSingleUser("207", title, body, result.firebase_token, type);
-                        let data = {
+                        let notificationData = {
                             user_id: result._id,
                             title: title,
                             message: body,
-                            type: 'School',
+                            type: 'Verification',
 
                         }
 
-                        const notificationModel = new Notification(data);
+                        const notificationModel = new Notification(notificationData);
                         await notificationModel.save();
 
 
@@ -277,8 +277,8 @@ module.exports = {
 
             let Notification_Data = {
                 user_id: _id,
-                title: `Hi! ${getUser.username}`,
-                message: `You have Assign in ${getStream.name} ${year} ${class_name}`,
+                title: `Hi ${getUser.username}!`,
+                message: `You are Assigned ${getStream.name} ${year} ${class_name}`,
                 type: 'Class',
 
             }
@@ -337,8 +337,8 @@ module.exports = {
             }, data).then(async (data) => {
 
                 let status = "207"
-                let title = "Hello"
-                let body = `You have assigned a lunch hall ${hall.hall_name} by your administrator`
+                let title = `Hi ${getUser.username}`
+                let body = `You have been assigned a lunch hall ${hall.hall_name} by your administrator`
                 let firebase_token = getUser.firebase_token
                 let type = "Hall"
 
@@ -669,12 +669,6 @@ module.exports = {
 
             const { name ,email ,phone ,school_name ,address} = req.body;
             const { role,  } = req.user;
-          
-
-
-
-           
-
             if (!name) {
                 res.send({
                     status: false,

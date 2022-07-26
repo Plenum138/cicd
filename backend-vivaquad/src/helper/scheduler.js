@@ -8,6 +8,11 @@ const { sendNotificationClass } = require('./firebase/firebase');
 
 module.exports = {
     scheduleAllJobs: async () => {
+     
+
+    
+
+
 
         try {
           
@@ -53,8 +58,10 @@ module.exports = {
   const startTimeTest = moment(item.startTime)
   const lessTimeTest = startTimeTest.subtract(time).format("hh:mm a");
 let time_show =  `${allocateDate[0]}-${allocateDate[1]}-${allocateDate[2]} , , ${lessTimeTest} `
-// console.log(time_show)
 // console.log(  "\u001b[1;36m ",allocateDate[0],"-",allocateDate[1],"-",allocateDate[2],"\u001b[1;32m " ,lessTimeTest );
+
+// console.log(dateTime)
+
 
 
 

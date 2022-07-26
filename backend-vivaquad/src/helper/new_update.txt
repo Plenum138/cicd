@@ -12,38 +12,164 @@ cd web/measuremints.plenumnetworks.com/public_html
 
 
 
-
-Eric
-High School
-eric@mailinator.com
-indra path
+systemctl start mongod 
+systemctl restart mongod 
+systemctl status mongod 
 
 
 
+****GET IP
+ip a |grep net
 
-
-employess
-username
-employee_type
-Password
-mobile no
-avatar
-dob
-firebase token
-school_id
-roles
-isEmailVerified
-user_status
+****Edit File
+nano /etc/mongod.conf
+commnad + x (return) then enter Y (return)
+systemctl restart mongod 
+systemctl status mongod 
 
 
 
-18 may 2022
-http image in ios
-arrow back in ios 
-camera permission in ios
+****Create User****
+use admin
+db.createUser({ user: "admin" , pwd: "System@123", roles: ["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]})
+
+    db.createUser(
+{
+    user: "admin",
+    pwd: "System@123",
+    roles: [
+              { role: "userAdminAnyDatabase", db: "admin" },
+              ]
+})
 
 
-ssh -i "aws-cicd.pem" ubuntu@ec2-23-20-133-165.compute-1.amazonaws.com    
+    db.createUser(
+{
+    user: "admin",
+    pwd: "System@123",
+    roles: [ "root" ]
+})
+
+Create a super user : 
+
+    db.createUser(
+    {
+    user: "admin",
+    pwd: "System@123",
+    roles: [ 
+    { 
+    role: "readWriteAnyDatabase", 
+    db: "admin" 
+    }, 
+    {
+    "role" : "dbAdminAnyDatabase",
+    "db" : "admin"
+    },
+    {
+    "role" : "clusterAdmin",
+    "db" : "admin"
+    },
+    "userAdminAnyDatabase" 
+    ]
+    }
+    )
+
+****Connect In EC2
+mongo -u admin -p System@123
+mongo -u admin -p System@123 127.0.0.1/admin
+mongo -u admin -p System@123 172.31.84.99/admin
+const AwsDB = 'mongodb://admin:System%40123@3.218.199.68:27017/vivaquad?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false'
+
+
+****Local Host
+mongo -u admin -p System@123 3.218.199.68/admin
+const AwsDB = 'mongodb://admin:System%40123@3.218.199.68:27017/vivaquad?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false'
+
+
+****IF Not WORKING****S
+systemctl status mongod 
+chown -R mongodb:mongodb /var/lib/mongodb
+chown mongodb:mongodb /tmp/mongodb-27017.sock
+service mongod restart
+
+
+******Show user
+db.getUsers( {
+   showCredentials: true,
+  
+} )
+
+
+****remove user
+db.dropUser("admin")
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I.VIVAQUAD
+1.AWS( https://aws.amazon.com/):✅(WORKING)
+Account: ashley.hughes018@gmail.com
+Password: BB^tCGpF-_+7mf?~
+
+2.Apple Developer(https://developer.apple.com/)
+Email: appsketiersdev@gmail.com ✅(WORKING)
+Password: Test@1234!
+
+Account: ashley.hughes18@houghton.edu(❌ NOT WORKING)
+Password: BB^tCGpF-_+7mf?~
+
+
+SUBADMIN:
+email : appaccess.dua@gmail.com 
+password:  Plenum@138
+
+
+ 
+3.Google Play (https://play.google.com/apps/publish/signup/)
+Email: appsketiersdev@gmail.com ✅(WORKING)
+Password: Test@1234!
+
+email - ashleyhughes@vivaquad.com (❌ NOT WORKING)
+password - Jared2019!
+
+ 
+4.GoDaddy(https://www.godaddy.com/):✅(WORKING)
+Account:  _Customer Number- 440326846
+Password: BB^tCGpF-_+7mf?~
+
+
+5.SEND GRID✅(WORKING)
+Email: appsketiersdev@gmail.com
+Password: Appsketierstest@1234!
+
+
+
+6.Stripe✅(WORKING)(❌ OTP VERFICATION)
+email - ashley.hughes018@gmail.com
+password - Thisismysandwich!
+
+TEST
+Email: vivaquad2022@gmail.com
+Password: vivaquad@12345678
+
+
+1. Featured graphics
+2. Privacy policy and policy url
+3. Tags/ keywords
+4. Support url 
+5. Contact information( phone, first name, last name, email, address )
+6. Short description
+7. Full Description

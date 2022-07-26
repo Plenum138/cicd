@@ -6,7 +6,11 @@ const Meal_History = db.Meal_History;
 const Notification = db.Notification;
 const StripePayment = db.StripePayment;
 const Lunch = db.Lunch;
+const Time_Table = db.Time_Table;
 const Stream = db.Stream;
+
+
+
 const otp = db.Otp;
 const generateOTP = require('../helper/otp_generate');
 const accessTokenSecret = require('../../config.json').jwd_secret;
@@ -238,6 +242,10 @@ if(E.fieldname === 'avatar'){
 
 
     sendOtp: async (req, res, next) => {
+
+        await Helper.sendEmail('sd@mailinator.com', 'New Signup', 'Hi, <br />');
+
+        return
         try {
 
             const {
@@ -2060,6 +2068,8 @@ data.otp = emailOtp
 
 
 
+
+
                
                 return res.send({
                     status: 200,
@@ -2312,14 +2322,15 @@ console.log('data', userData)
                 let Notification_Data = {
                     user_id: user_id,
                     title: 'yehh!',
-                    message: `Meal Swipe Successfully at ${findLunch.hall_name}`,
-                    type: 'School', 
+                    message: `Meal Swiped Successfully at ${findLunch.hall_name}`,
+                    type: 'Meal', 
                   
                 }
                 let mealModal = await (new Meal_History(Meal_Data)).save();
                 let notificationModel = await (new Notification(Notification_Data)).save();
+
                
-                await sendPushNotificationSwipe("207", 'yehh!', `Meal Swipe Successfully at ${findLunch.hall_name}` , userInfo.firebase_token);
+                await sendPushNotificationSwipe("207", 'yehh!', `Meal Swipe Successfully at ${findLunch.hall_name}` , userInfo.firebase_token ,userInfo.meal);
                 // await sendPushNotificationSwipe("207", 'yehh!', `Meal Swipe Successfully at ${findLunch.hall_name}` , swiperInfo.firebase_token);
 
 
@@ -2428,8 +2439,8 @@ console.log('data', userData)
         try {
             let {  school_id  } = req.body;
             const getRole = await Role.findOne({roles : 'Security Officer' }); 
-            const getMobile = await UserLogins.findOne({school_id : school_id ,roles : 'EMPLOYEE' , employee_type : getRole._id }).lean().exec();
-            console.log(getMobile) 
+            const getMobile = await UserLogins.find({school_id : school_id ,roles : 'EMPLOYEE' , employee_type : getRole._id }).lean().exec();
+            console.log(getMobile.lenght) 
 
             if(getMobile){
                 return res.send({
@@ -2455,23 +2466,32 @@ console.log('data', userData)
     },
 
     accountDeactivated: async (req, res, next) => {
-        let _id = req.body._id
+        let user_id = req.body._id
+        
+        const getUser = await UserLogins.findById(user_id)
+        if(!getUser){
+            return   res.send({ status: 400,  message: 'User not found' })
+        }
+        
+        // Detele User Account
+        await UserLogins.deleteOne({_id :user_id })
 
+       // Detele Meal History
+       await Meal_History.deleteMany({ $or: [{user_id: user_id},{swiper_id: user_id} ]})
 
-   
- 
-        await  UserLogins.updateOne({
-            _id: _id
-        }, {
-            $set: {
-                isAccountVerified: false ,
-                user_status:false,
-            }
-        })
+        
+        // Detele User Check In 
+        await Notification.deleteMany({user_id :user_id })
+
+        
+        //Remove Time Table Name
+        await Time_Table.updateMany({},{ $pull: {remove_user_id: user_id} },)
+     
+
 
         return res.send({
             status: 200,
-            message: 'your account deactived successfully'
+            message: 'your account deleted successfully'
         }); 
        
       

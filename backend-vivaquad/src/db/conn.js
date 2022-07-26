@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-const localDB = "mongodb://127.0.0.1:27017/vivaquad";
+const localDB = "mongodb://localhost:27017/vivaquad";
 const liveDB = "mongodb://plenum:raryFouPl1@161.97.157.111:27017/vivaquad?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false";
+const AwsDB = 'mongodb://admin:System%40123@3.218.199.68:27017/vivaquad?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false'
 
 
-
-mongoose.connect(process.env.MONGODB_URI || localDB, {
+mongoose.connect(process.env.MONGODB_URI || liveDB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 
